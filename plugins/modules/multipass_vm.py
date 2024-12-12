@@ -124,8 +124,8 @@ def main():
                     vm_name=vm_name,
                     image=image,
                     cpu=cpus,
-                    network=network,
                     mem=memory,
+                    network=network,
                     disk=disk,
                     cloud_init=cloud_init
                     )
@@ -155,8 +155,8 @@ def main():
                         vm_name=vm_name,
                         image=image,
                         cpu=cpus,
-                        network=network,
                         mem=memory,
+                        network=network,
                         disk=disk,
                         cloud_init=cloud_init
                         )
