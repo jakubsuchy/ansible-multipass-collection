@@ -85,6 +85,7 @@ def main():
             name = dict(required=True, type='str'),
             image = dict(required=False, type=str, default='ubuntu-lts'),
             cpus = dict(required=False, type=int, default=1),
+            network = dict(required=False, type=str default=None),
             memory = dict(required=False, type=str, default='1G'),
             disk = dict(required=False, type=str, default='5G'),
             cloud_init = dict(required=False, type=str, default=None),
@@ -105,6 +106,7 @@ def main():
     vm_name = module.params.get('name')
     image = module.params.get('image')
     cpus = module.params.get('cpus')
+    network = module.params.get('network')
     state = module.params.get('state')
     memory = module.params.get('memory')
     disk = module.params.get('disk')
@@ -122,6 +124,7 @@ def main():
                     vm_name=vm_name,
                     image=image,
                     cpu=cpus,
+                    network=network,
                     mem=memory,
                     disk=disk,
                     cloud_init=cloud_init
@@ -152,6 +155,7 @@ def main():
                         vm_name=vm_name,
                         image=image,
                         cpu=cpus,
+                        network=network,
                         mem=memory,
                         disk=disk,
                         cloud_init=cloud_init
@@ -263,6 +267,10 @@ options:
     description: The number of CPUs of the VM.
     required: false
     type: int
+  network:
+    description: The network spec of the VM, passed to the --network argument.
+    required: false
+    type: str
   memory:
     description: The amount of RAM to allocate to the VM.
     required: false
@@ -370,6 +378,7 @@ EXAMPLES = '''
   theko2fi.multipass.multipass_vm:
     name: foo
     cpus: 2
+    network: en0
     memory: 2G
     disk: 5G
 
