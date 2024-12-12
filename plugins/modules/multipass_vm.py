@@ -85,7 +85,7 @@ def main():
             name = dict(required=True, type='str'),
             image = dict(required=False, type=str, default='ubuntu-lts'),
             cpus = dict(required=False, type=int, default=1),
-            network = dict(required=False, type=str default=None),
+            network = dict(required=False, type=str, default=None),
             memory = dict(required=False, type=str, default='1G'),
             disk = dict(required=False, type=str, default='5G'),
             cloud_init = dict(required=False, type=str, default=None),
