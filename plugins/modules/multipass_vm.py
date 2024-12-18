@@ -85,7 +85,6 @@ def main():
             name = dict(required=True, type='str'),
             image = dict(required=False, type=str, default='ubuntu-lts'),
             cpus = dict(required=False, type=int, default=1),
-            network = dict(required=False, type=str, default=None),
             memory = dict(required=False, type=str, default='1G'),
             disk = dict(required=False, type=str, default='5G'),
             cloud_init = dict(required=False, type=str, default=None),
@@ -130,7 +129,7 @@ def main():
                     image=image,
                     cpu=cpus,
                     mem=memory,
-                    network=network,
+                    networks=networks,
                     disk=disk,
                     cloud_init=cloud_init
                     )
@@ -161,7 +160,7 @@ def main():
                         image=image,
                         cpu=cpus,
                         mem=memory,
-                        network=network,
+                        networks=networks,
                         disk=disk,
                         cloud_init=cloud_init
                         )
@@ -272,10 +271,27 @@ options:
     description: The number of CPUs of the VM.
     required: false
     type: int
-  network:
-    description: The network spec of the VM, passed to the --network argument.
+  networks:
+    description: A list of networks to be used in the VM specification.
     required: false
-    type: str
+    elements: dict
+    type: list
+    suboptions:
+      name:
+        type: str
+        description:
+          - Name of the network
+        required: true
+      mode:
+        type: str
+        description:
+          - Network mode
+        required: false
+      mac:
+        type: str
+        description:
+          - The MAC specified
+        required: false
   memory:
     description: The amount of RAM to allocate to the VM.
     required: false
