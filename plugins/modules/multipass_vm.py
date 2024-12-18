@@ -399,7 +399,20 @@ EXAMPLES = '''
   theko2fi.multipass.multipass_vm:
     name: foo
     cpus: 2
-    network: en0
+    networks:
+      - name: en0
+    memory: 2G
+    disk: 5G
+
+- name: Create a VM with multiple networks
+  theko2fi.multipass.multipass_vm:
+    name: foo
+    cpus: 2
+    networks:
+      - name: en0
+      - name: bridge0
+        mode: manual
+        mac: '50:b3:41:6c:83:cd'
     memory: 2G
     disk: 5G
 
