@@ -92,6 +92,11 @@ def main():
             state = dict(required=False, type=str, default='present'),
             recreate = dict(required=False, type=bool, default=False),
             purge = dict(required=False, type=bool, default=False),
+            networks = dict(type='list', elements='dict', suboptions=dict(
+                name=dict(type='str', required=True),
+                mode=dict(type='str'),
+                mac=dict(type='str'),
+                )
             mounts = dict(type='list', elements='dict', suboptions=dict(
                 target=dict(type='str'),
                 source=dict(type='str', required=True),
@@ -106,7 +111,7 @@ def main():
     vm_name = module.params.get('name')
     image = module.params.get('image')
     cpus = module.params.get('cpus')
-    network = module.params.get('network')
+    networks = module.params.get('networks')
     state = module.params.get('state')
     memory = module.params.get('memory')
     disk = module.params.get('disk')
