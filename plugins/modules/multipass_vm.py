@@ -96,7 +96,7 @@ def main():
                 name=dict(type='str', required=True),
                 mode=dict(type='str'),
                 mac=dict(type='str'),
-                )
+                )),
             mounts = dict(type='list', elements='dict', suboptions=dict(
                 target=dict(type='str'),
                 source=dict(type='str', required=True),
