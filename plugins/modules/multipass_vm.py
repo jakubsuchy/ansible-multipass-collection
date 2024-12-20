@@ -93,9 +93,10 @@ def main():
             purge = dict(required=False, type=bool, default=False),
             networks = dict(type='list', elements='dict', suboptions=dict(
                 name=dict(type='str', required=True),
-                mode=dict(type='str'),
+                mode=dict(type='str', choices=['auto', 'manual'], default='auto'),
                 mac=dict(type='str'),
-                )),
+                )
+            ),
             mounts = dict(type='list', elements='dict', suboptions=dict(
                 target=dict(type='str'),
                 source=dict(type='str', required=True),
@@ -280,17 +281,22 @@ options:
       name:
         type: str
         description:
-          - Name of the network
+          - Name of the host network to connect the instance's device to 
         required: true
       mode:
         type: str
         description:
           - Network mode
+          - If it's C('auto') the VM will attempt to configure the network automatically.
         required: false
+        default: auto
+        choices:
+          - auto
+          - manual
       mac:
         type: str
         description:
-          - The MAC specified
+          - Custom MAC address to use for the device.
         required: false
   memory:
     description: The amount of RAM to allocate to the VM.
@@ -399,22 +405,23 @@ EXAMPLES = '''
   theko2fi.multipass.multipass_vm:
     name: foo
     cpus: 2
-    networks:
-      - name: en0
     memory: 2G
     disk: 5G
+    networks:
+      - name: en0
 
 - name: Create a VM with multiple networks
   theko2fi.multipass.multipass_vm:
     name: foo
     cpus: 2
+    memory: 2G
+    disk: 5G
     networks:
       - name: en0
       - name: bridge0
         mode: manual
         mac: '50:b3:41:6c:83:cd'
-    memory: 2G
-    disk: 5G
+
 
 - name: Stop a VM
   theko2fi.multipass.multipass_vm:
